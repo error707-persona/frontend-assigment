@@ -1,10 +1,13 @@
 const express = require('express');
+const NotesModel = require('./models/dataModel');
+const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors');
+// var cors = require('cors')
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 dotenv.config()
 
-const app = express();
 
 // connections
 mongoose
@@ -16,10 +19,33 @@ mongoose
   .catch((err) => console.log("Couldn't connect to Atlas: ", err.message));
 
 const con=mongoose.connection 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-// app.use('cors');
+
+// routes
+// const dataRouter = require('./routes/Notes');
+// app.use('/Notes', dataRouter);
+
+app.post('/Notes', async (req, res)=>{
+  const {title, tagline, note} = req.body;
+
+  try{
+    const newNote = await NotesModel.create({title, tagline, note});
+    res.json(newNote);
+  } catch(err){
+    res.status(500).send(err);
+  }
+})
+
+app.get('/', async (req, res)=>{
+  
+
+  try{
+    const newNote = await NotesModel.find();
+    res.json(newNote);
+  } catch(err){
+    res.status(500).send(err);
+  }
+})
+// cors headers
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -28,10 +54,6 @@ app.use(function (req, res, next) {
   next();
   });
 
-//   routes
-const dataRouter = require('../backend/routes/Notes');
-app.use('/Notes', dataRouter);
-
-  app.listen(9000, ()=>{
-    console.log('Server started');
-  })
+app.listen(9001,()=>{
+  console.log("listening to 9001");
+})
