@@ -1,6 +1,6 @@
 import { useState,  } from 'react'
 import '../style/style.css'
-import SearchBar from './components/SearchBar'
+
 import Notes from './components/Notes'
 import NavBar from './components/NavBar'
 import Modal from './components/Modal'
@@ -12,9 +12,9 @@ function App() {
 
   return (
     <div className="App">
-    <SearchBar/>
+    
    
-     <Modal/>
+     <Modal />
    
     <main>
       <Notes/>

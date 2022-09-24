@@ -98,6 +98,11 @@
     
     
 }
+
+.notes-body{
+    margin-left: auto;
+    margin-right: auto;
+}
 .notes-item{
     border-radius: 1rem;
     padding: 10px;
@@ -175,14 +180,20 @@
     margin-top: 10px;
     outline: none;
     border: 0;
-    background-color: rgb(98, 21, 152);
+    background-color: rgb(93, 42, 129);
     color:#fff;
     border-radius: 10px;
     width: 50px;
     height: 30px;
     margin-left: 20px;
 }
+.close:hover{
+    background-color: rgb(52, 15, 72);
+}
 
+#close{
+    width: 100px;
+}
 .add{
     font-size: 120px;
     display: flex;

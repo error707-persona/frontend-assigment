@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import { userData } from "../../backend/userData";
 
-const fetchData = () => {
+const EditData = () => {
     const [data, setdata] = useState([{
         title:"Title",
         tagline:"tagline",
@@ -25,4 +25,4 @@ const fetchData = () => {
     if (data) return data;
 }
 
-export { fetchData };
+export { EditData };

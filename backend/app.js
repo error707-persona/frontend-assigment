@@ -4,8 +4,16 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // var cors = require('cors')
+// app.use(cors);
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+  });
 dotenv.config()
 
 
@@ -45,15 +53,33 @@ app.get('/', async (req, res)=>{
     res.status(500).send(err);
   }
 })
-// cors headers
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-  });
 
-app.listen(9001,()=>{
-  console.log("listening to 9001");
+app.get('/search/:title', async (req, res)=>{
+  
+  const {title} = req.params;
+
+  try{
+    const newNote = await NotesModel.find({title:title});
+    res.json(newNote);
+  } catch(err){
+    res.status(500).send(err);
+  }
+});
+
+app.post('/delete/:id', async (req, res)=>{
+  
+  const {id} = req.params;
+
+  try{
+    const newNote = await NotesModel.deleteOne({_id:id});
+    res.json(newNote);
+  } catch(err){
+    res.status(500).send(err);
+  }
+})
+// cors headers
+
+
+app.listen(9023,()=>{
+  console.log("listening to 9023");
 })
