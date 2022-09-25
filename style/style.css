@@ -92,9 +92,9 @@
 .notes-container{
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-columns: repeat(3, 300px);
     gap:24px;
-    
+    justify-content: center;
     
     
 }
@@ -102,6 +102,8 @@
 .notes-body{
     margin-left: auto;
     margin-right: auto;
+    
+    
 }
 .notes-item{
     border-radius: 1rem;
@@ -110,12 +112,42 @@
     background-color: aliceblue;
     outline: none;
     border:0;
-    height: 200px;
+    height: 300px;
     resize: none;
     font-size: 12px;
     font-family: sans-serif;
     cursor: pointer;
+   
 }
+
+
+.options{
+    display: flex;
+    float:right;
+    margin-top: 190px;
+    align-items: center;
+
+    
+}
+
+.pin{
+    padding: 5px;
+    margin-left: 5px;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(93, 42, 129);
+    color:#fff;
+    border: 0;
+    border-radius: 4rem;
+    
+}
+
+.pin:hover{
+    background-color: var(--fg-secondary);
+    color: #fff;
+    border-radius: 1.2rem;
+}
+
 
 .title{
     font-weight: bold;
@@ -176,6 +208,9 @@
     align-items: center;
 }
 
+
+
+
 .close{
     margin-top: 10px;
     outline: none;
@@ -191,9 +226,6 @@
     background-color: rgb(52, 15, 72);
 }
 
-#close{
-    width: 100px;
-}
 .add{
     font-size: 120px;
     display: flex;

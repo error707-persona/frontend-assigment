@@ -4,6 +4,7 @@ import '../style/style.css'
 import Notes from './components/Notes'
 import NavBar from './components/NavBar'
 import Modal from './components/Modal'
+// import TransitionsModal from './components/TransitionModal'
 
 // export const modalContext = React.createContext();
 
@@ -15,7 +16,7 @@ function App() {
     
    
      <Modal />
-   
+    
     <main>
       <Notes/>
     </main>

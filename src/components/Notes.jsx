@@ -1,79 +1,119 @@
-import axios from 'axios';
-import React, {useState, useRef, useEffect} from 'react'
+
+import React, { useState, useRef, useEffect } from 'react'
 import { fetchData } from '../utils/fetchData'
-import { Pagination } from '@mui/material';
+import { Pagination, Input, InputAdornment, OutlinedInput, TextField, Button } from '@mui/material';
 import { DeleteNote } from '../utils/DeleteNote';
+import { IconSearch, IconPin, IconTrash } from "@tabler/icons"
+import Modal from './Modal';
+import { PinData } from '../utils/PinData';
 const Notes = () => {
- const data = fetchData();
- const [search, setsearch] = useState("");
- const [page, setpage] = useState(1);
- console.log(data, "outside");
- const dummyData = {
-  title:"Title",
-  tagline:"Tagline",
-  note:"Empty Note"
-};
-const handleSearch = () => {
-  return data.filter((item)=>(
+  const data = fetchData();
+  // const [click, setclick] = useState(0)
+  const [search, setsearch] = useState("");
+  const [page, setpage] = useState(1);
+  
+  // console.log(data, "outside");
+  const dummyData = {
+    title: "Title",
+    tagline: "Tagline",
+    note: "Empty Note"
+  };
+  const handleSearch = () => {
+    const pinned = data.filter(item => item.pinned == "true");
+    const unpinned = data.filter(item => item.pinned == "false");
+    const allData = [...pinned, ...unpinned];
+
+    return allData.filter((item) => (
       item.title.toLowerCase().includes(search) ||
       item.tagline.toLowerCase().includes(search) ||
-      item.note.toLowerCase().includes(search) 
-  ))
-}
+      item.note.toLowerCase().includes(search))
+    )
+  }
+
+  const handlePin = (id) => {
+    PinData(id);
+    
+  }
 
 
 
-// modal
-const handleClick = () => {
+  // Delete function
+  const handleClick = (id) => {
+    console.log(id);
+    DeleteNote(id);
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000)
 
-}
+  }
+
+
+
 
 
   return (
     <div className='notes-body'>
-      
       <div className='container'>
-
-
-
-
-    <input type="text" onChange={(e)=>setsearch(e.target.value)} className='searchbar' placeholder='Search notes' />
-   
-</div>
-    <div className="notes-container">
-      
-      {(data)? handleSearch().slice((page-1)*10, (page-1)*10+10).map((item)=><div className='notes-item' onClick={handleClick(item.title, item.tagline, item.note)} onContextMenu={handleClick}>
-        <span className='title'>{item.title}</span> <hr />
-        <span className='tagline'>{item.tagline}</span>
-        <p>{item.note}</p>
-      </div>) :
-      <div className='notes-item'>
-      <span className='title'>{dummyData.title}</span> <hr />
-      <span className='tagline'>{dummyData.tagline}</span>
-      <p>{dummyData.note}</p>
-    </div>
-      }
-      
-      <div className='notes-item add'>
-      +
-      </div>
-      
-      
-    </div>
-    <Pagination count={(handleSearch()?.length/10).toFixed(0)}
-        style={{padding:20,
-        width:"100%",
-        display:"flex",
-        justifyContent:"center",
-        }}
-        
-        onChange={(_, value)=>{
-            setpage(value);
-            window.scroll(0,450);
-        }}
+        <TextField
+          variant="standard" // <== changed this
+          margin="normal"
+          className='searchbar'
+          autoFocus
+          style={{ background: "#fff" }}
+          onChange={(e) => setsearch(e.target.value)}
+          placeholder="Search Notes"
+          InputProps={{
+            startAdornment: <IconSearch />, // <== adjusted this
+            disableUnderline: true, // <== added this
+          }}
         />
-        
-</div>
+
+
+      </div>
+      <div className="notes-container">
+
+        {(data) ? handleSearch().slice((page - 1) * 6, (page - 1) * 6 + 6).map((item) => <div className='notes-item'>
+          <span className='title'>{item.title}</span> <hr />
+          <span className='tagline'>{item.tagline}</span>
+          <p>{item.note}</p>
+
+
+          <div className="options">
+            <Modal changevalue={"Edit"} changetitle={"Edit"} />
+            <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
+            <button className='pin' onClick={() => handlePin(item._id)}><IconPin /></button>
+          </div>
+
+        </div>) :
+          <div className='notes-item'>
+            <span className='title'>{dummyData.title}</span> <hr />
+            <span className='tagline'>{dummyData.tagline}</span>
+            <p>{dummyData.note}</p>
+
+          </div>
+        }
+
+        <div className='notes-item add'>
+          +
+        </div>
+
+
+      </div>
+      <Pagination count={Math.ceil(handleSearch().length / 6).toFixed(0)}
+        style={{
+          padding: 20,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+
+        onChange={(_, value) => {
+          setpage(value);
+          window.scroll(0, 100);
+        }}
+      />
+
+    </div>
 
   )
 }

@@ -43,6 +43,17 @@ app.post('/Notes', async (req, res)=>{
   }
 })
 
+app.post('/pin/:id', async (req, res)=>{
+  const {id} = req.body;
+
+  try{
+    const newNote = await NotesModel.findOneAndUpdate({_id:id, $set:{pinned:"true"}});
+    res.json(newNote);
+  } catch(err){
+    res.status(500).send(err);
+  }
+})
+
 app.get('/', async (req, res)=>{
   
 
@@ -54,17 +65,17 @@ app.get('/', async (req, res)=>{
   }
 })
 
-app.get('/search/:title', async (req, res)=>{
+// app.get('/search/:title', async (req, res)=>{
   
-  const {title} = req.params;
+//   const {title} = req.params;
 
-  try{
-    const newNote = await NotesModel.find({title:title});
-    res.json(newNote);
-  } catch(err){
-    res.status(500).send(err);
-  }
-});
+//   try{
+//     const newNote = await NotesModel.find({title:title});
+//     res.json(newNote);
+//   } catch(err){
+//     res.status(500).send(err);
+//   }
+// });
 
 app.post('/delete/:id', async (req, res)=>{
   

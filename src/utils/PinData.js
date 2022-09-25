@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const DeleteNote = (id) => {
+const PinData = (id) => {
         axios({
             method: 'post',
-            url: `http://localhost:9023/delete/${id}`,
-           
+            url: `http://localhost:9023/pin/${id}`,
           }).then(res=>{
             console.log("res post", res.data);
           }).catch(err=>{
@@ -12,4 +11,4 @@ const DeleteNote = (id) => {
           });
 }
 
-export { DeleteNote };
+export { PinData };

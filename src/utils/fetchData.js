@@ -14,14 +14,14 @@ const fetchData = () => {
             .get(`http://localhost:9023/`)
             .then(res => {
                 // item = res.data;
-                console.log("item", res.data)
+                // console.log("item", res.data)
                 setdata(res.data);
             })
             .catch(err => {
                 console.log(err);
             })
     }, [])
-    console.log(data)
+    // console.log(data)
     if (data) return data;
 }
 
