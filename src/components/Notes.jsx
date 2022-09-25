@@ -11,7 +11,7 @@ const Notes = () => {
   // const [click, setclick] = useState(0)
   const [search, setsearch] = useState("");
   const [page, setpage] = useState(1);
-  
+  const pin = useRef(null);
   // console.log(data, "outside");
   const dummyData = {
     title: "Title",
@@ -22,7 +22,7 @@ const Notes = () => {
     const pinned = data.filter(item => item.pinned == "true");
     const unpinned = data.filter(item => item.pinned == "false");
     const allData = [...pinned, ...unpinned];
-
+    console.log("alldata", allData)
     return allData.filter((item) => (
       item.title.toLowerCase().includes(search) ||
       item.tagline.toLowerCase().includes(search) ||
@@ -81,7 +81,8 @@ const Notes = () => {
           <div className="options">
             <Modal changevalue={"Edit"} changetitle={"Edit"} />
             <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
-            <button className='pin' onClick={() => handlePin(item._id)}><IconPin /></button>
+           {(item.pinned==="true")? <button ref={pin} className='pin pin-selected' onClick={() => handlePin(item._id)}><IconPin /></button>
+           :<button ref={pin} className='pin' onClick={() => handlePin(item._id)}><IconPin /></button>}
           </div>
 
         </div>) :

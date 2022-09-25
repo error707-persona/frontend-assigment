@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // var cors = require('cors')
 // app.use(cors);
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
-  });
+});
 dotenv.config()
 
 
@@ -26,47 +26,49 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Couldn't connect to Atlas: ", err.message));
 
-const con=mongoose.connection 
+const con = mongoose.connection
 
 // routes
 // const dataRouter = require('./routes/Notes');
 // app.use('/Notes', dataRouter);
 
-app.post('/Notes', async (req, res)=>{
-  const {title, tagline, note} = req.body;
+app.post('/Notes', async (req, res) => {
+  const { title, tagline, note } = req.body;
 
-  try{
-    const newNote = await NotesModel.create({title, tagline, note});
+  try {
+    const newNote = await NotesModel.create({ title, tagline, note });
     res.json(newNote);
-  } catch(err){
+  } catch (err) {
     res.status(500).send(err);
   }
 })
 
-app.post('/pin/:id', async (req, res)=>{
-  const {id} = req.body;
+app.post('/pin/:id', async (req, res) => {
+  const { id } = req.params;
 
-  try{
-    const newNote = await NotesModel.findOneAndUpdate({_id:id, $set:{pinned:"true"}});
+  try {
+    const newNote = await NotesModel.findOneAndUpdate(
+      {_id:id},
+      { pinned: true });
     res.json(newNote);
-  } catch(err){
+  } catch (err) {
     res.status(500).send(err);
   }
 })
 
-app.get('/', async (req, res)=>{
-  
+app.get('/', async (req, res) => {
 
-  try{
+
+  try {
     const newNote = await NotesModel.find();
     res.json(newNote);
-  } catch(err){
+  } catch (err) {
     res.status(500).send(err);
   }
 })
 
 // app.get('/search/:title', async (req, res)=>{
-  
+
 //   const {title} = req.params;
 
 //   try{
@@ -77,20 +79,20 @@ app.get('/', async (req, res)=>{
 //   }
 // });
 
-app.post('/delete/:id', async (req, res)=>{
-  
-  const {id} = req.params;
+app.post('/delete/:id', async (req, res) => {
 
-  try{
-    const newNote = await NotesModel.deleteOne({_id:id});
+  const { id } = req.params;
+
+  try {
+    const newNote = await NotesModel.deleteOne({ _id: id });
     res.json(newNote);
-  } catch(err){
+  } catch (err) {
     res.status(500).send(err);
   }
 })
 // cors headers
 
 
-app.listen(9023,()=>{
+app.listen(9023, () => {
   console.log("listening to 9023");
 })
