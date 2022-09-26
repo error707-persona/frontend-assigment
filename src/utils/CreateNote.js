@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 // import { userData } from "../../backend/userData";
 
 const CreateNote = (title, tagline, note) => {
-        if (title==="") title="Empty title"
-        if (tagline=="") tagline="Empty tagline"
-        if (note=="") tagline="Empty note"
+  if (title === "") title = "Empty title"
+  if (tagline === "") tagline = "Empty tagline"
+  if (note === "") note = "Empty note"
     
         axios({
             method: 'post',

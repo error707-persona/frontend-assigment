@@ -1,17 +1,20 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { fetchData } from '../utils/fetchData'
-import { Pagination, Input, InputAdornment, OutlinedInput, TextField, Button } from '@mui/material';
+import { Pagination, TextField } from '@mui/material';
 import { DeleteNote } from '../utils/DeleteNote';
 import { IconSearch, IconPin, IconTrash } from "@tabler/icons"
 import Modal from './Modal';
 import { PinData } from '../utils/PinData';
 const Notes = () => {
   const data = fetchData();
+
   // const [click, setclick] = useState(0)
   const [search, setsearch] = useState("");
   const [page, setpage] = useState(1);
+  
   const pin = useRef(null);
+  var changevalue = "Edit"
   // console.log(data, "outside");
   const dummyData = {
     title: "Title",
@@ -19,20 +22,45 @@ const Notes = () => {
     note: "Empty Note"
   };
   const handleSearch = () => {
-    const pinned = data.filter(item => item.pinned == "true");
-    const unpinned = data.filter(item => item.pinned == "false");
+    const pinned = data.filter(item => item.pinned === "true")
+    .sort((var1,var2)=>{
+      var a = new Date(var1.updatedAt)
+      var b = new Date(var2.updatedAt)
+      return b - a;
+    })
+    const unpinned = data.filter(item => item.pinned === "false")
+    .sort((var1,var2)=>{
+      var a = new Date(var1.updatedAt)
+      var b = new Date(var2.updatedAt)
+      return b - a;
+    })
+    
+    // .sort((var1,var2)=>{
+    //   var a = new Date(var1);
+    //   var b = new Date(var2);
+    //   if (a > b) return 1; if (a < b) return -1; return 0;
+    // });
     const allData = [...pinned, ...unpinned];
-    console.log("alldata", allData)
+    // console.log("alldata", allData)
     return allData.filter((item) => (
-      item.title.toLowerCase().includes(search) ||
-      item.tagline.toLowerCase().includes(search) ||
-      item.note.toLowerCase().includes(search))
+      item.title?.toLowerCase().includes(search) ||
+      item.tagline?.toLowerCase().includes(search) ||
+      item.note?.toLowerCase().includes(search))
     )
   }
 
-  const handlePin = (id) => {
-    PinData(id);
-    
+  const handlePin = (id, isPinned) => {
+    console.log("pinn", isPinned)
+    if(isPinned==="false"){
+      PinData(id, "true")
+      
+    }
+    if(isPinned==="true"){
+      PinData(id, "false")
+    }
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000)
   }
 
 
@@ -47,7 +75,7 @@ const Notes = () => {
 
   }
 
-
+// console.log(handleSearch(), "well donw data");
 
 
 
@@ -72,20 +100,21 @@ const Notes = () => {
       </div>
       <div className="notes-container">
 
-        {(data) ? handleSearch().slice((page - 1) * 6, (page - 1) * 6 + 6).map((item) => <div className='notes-item'>
+        {(data) ? handleSearch()
+        .slice((page - 1) * 6, (page - 1) * 6 + 6)
+        .map((item) => <div className='notes-item'>
           <span className='title'>{item.title}</span> <hr />
-          <span className='tagline'>{item.tagline}</span>
-          <p>{item.note}</p>
-
-
+          <span className='tagline'>{item.tagline}</span> <br />
+          <textarea disabled cols="37" rows="13">{item.note}</textarea>
+   
           <div className="options">
-            <Modal changevalue={"Edit"} changetitle={"Edit"} />
+            <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item.id} />
             <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
-           {(item.pinned==="true")? <button ref={pin} className='pin pin-selected' onClick={() => handlePin(item._id)}><IconPin /></button>
-           :<button ref={pin} className='pin' onClick={() => handlePin(item._id)}><IconPin /></button>}
+           {(item.pinned==="true")? <button ref={pin} className='pin pin-selected' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>
+           :<button ref={pin} className='pin' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>}
           </div>
-
-        </div>) :
+        </div>)
+         :
           <div className='notes-item'>
             <span className='title'>{dummyData.title}</span> <hr />
             <span className='tagline'>{dummyData.tagline}</span>
@@ -96,6 +125,7 @@ const Notes = () => {
 
         <div className='notes-item add'>
           +
+          {/* <Modal className={['notes-item','add']} changevalue={"Create"} changetitle={"Create"}/> */}
         </div>
 
 

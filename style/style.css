@@ -55,17 +55,9 @@
     height: 45px;
     overflow: hidden;
     white-space: nowrap;
-   
+    color: rgb(146, 70, 187);
 }
 
-.nav__item:hover{
-    background-color: var(--fg-secondary);
-    color: aliceblue;
-}
-
-.nav__item--active{
-    color: var(--fg-secondary);
-}
 
 
 /* search */
@@ -89,10 +81,12 @@
 }
 
 /* notes */
+
+
 .notes-container{
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 300px);
+    grid-template-columns: repeat(1, 300px);
     gap:24px;
     justify-content: center;
     
@@ -117,14 +111,32 @@
     font-size: 12px;
     font-family: sans-serif;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
    
 }
+
+.notes-item p{
+    word-break: break-all;
+    margin-bottom: 5px;
+}
+
+textarea[disabled] {
+    color: black;
+    outline: none;
+    resize: none;
+    border: none;
+    background-color: aliceblue;
+    margin-left: 5px;
+
+ }
 
 
 .options{
     display: flex;
     float:right;
-    margin-top: 190px;
+    margin-top: 13px;
     align-items: center;
 
     
@@ -151,6 +163,11 @@
 .pin-selected{
     background-color: rgb(245, 36, 36);
     color: #fff;
+}
+
+.pin-unselected{
+    background-color: rgb(93, 42, 129);
+    
 }
 
 
@@ -180,11 +197,13 @@
     width: 100%;
     opacity: 0;
     pointer-events: none;
+
 }
 
 .modal-container.show{
     pointer-events: auto;
     opacity: 1;
+
 }
 
 .modal{
@@ -193,6 +212,7 @@
     border-radius: 0.5rem;
     max-width: 100%;
     width: 600px;
+    
     
 }
 
@@ -263,10 +283,21 @@
         background: rgba(0,0,0,0.2);
     }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 750px) {
     .main{
         display: grid;
         place-items: center;
         gap: 6rem;
     }
+
+    .notes-container{
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 300px);
+        gap:24px;
+        justify-content: center;
+        
+        
+    }
+    
 }

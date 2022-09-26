@@ -32,25 +32,67 @@ const con = mongoose.connection
 // const dataRouter = require('./routes/Notes');
 // app.use('/Notes', dataRouter);
 
+// add note
 app.post('/Notes', async (req, res) => {
   const { title, tagline, note } = req.body;
-
+  
   try {
-    const newNote = await NotesModel.create({ title, tagline, note });
+    const newNote = await NotesModel.create({ title:title, tagline:tagline, note:note });
     res.json(newNote);
   } catch (err) {
     res.status(500).send(err);
   }
 })
-
+// pin
 app.post('/pin/:id', async (req, res) => {
   const { id } = req.params;
+  const { isPinned } = req.body;
 
   try {
     const newNote = await NotesModel.findOneAndUpdate(
-      {_id:id},
-      { pinned: true });
+      { _id: id },
+      { pinned: isPinned });
     res.json(newNote);
+    console.log("api pin", isPinned)
+  } catch (err) {
+    res.status(500).send(err);
+  }
+})
+
+// edit
+// app.post('/edit/:id', async (req, res) => {
+//   const { id } = req.params;
+//   const { title,tagline, note  } = req.body;
+
+//   try {
+//     const newNote = await NotesModel.updateOne(
+//       { _id: id },
+//       {$set: {
+//         tite:title,
+//         tagline:tagline,
+//         note:note
+//       }});
+//     res.json(newNote);
+//     // console.log("api pin", isPinned)
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// })
+
+app.post('/edit/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title,tagline, note} = req.body;
+
+  try {
+    const newNote = await NotesModel.updateOne(
+      { _id:id},
+      {$set:{
+        title:title,
+        tagline:tagline,
+        note:note
+      }});
+    res.json(newNote);
+    // console.log("api pin", isPinned)
   } catch (err) {
     res.status(500).send(err);
   }
@@ -79,6 +121,7 @@ app.get('/', async (req, res) => {
 //   }
 // });
 
+// delete note
 app.post('/delete/:id', async (req, res) => {
 
   const { id } = req.params;
