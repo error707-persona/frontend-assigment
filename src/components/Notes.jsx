@@ -105,8 +105,8 @@ const Notes = () => {
         .map((item) => <div className='notes-item'>
           <span className='title'>{item.title}</span> <hr />
           <span className='tagline'>{item.tagline}</span> <br />
-          <textarea disabled cols="37" rows="13">{item.note}</textarea>
-   
+          <textarea disabled cols="37" rows="13" value={item.note}></textarea>
+          
           <div className="options">
             <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item.id} />
             <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
