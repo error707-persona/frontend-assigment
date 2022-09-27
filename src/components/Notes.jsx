@@ -127,7 +127,7 @@ const Notes = () => {
         {/* <div className='notes-item add'>
           +
         </div> */}
-        <Modal changeclass={true}/>
+        <Modal changeclass={true} pagination={pagination}/>
       </div>
       <div ref={pagination} className="pagination"><Pagination count={Math.ceil(handleSearch().length / 6).toFixed(0)}
         style={{
