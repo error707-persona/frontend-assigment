@@ -6,6 +6,7 @@ import { DeleteNote } from '../utils/DeleteNote';
 import { IconSearch, IconPin, IconTrash } from "@tabler/icons"
 import Modal from './Modal';
 import { PinData } from '../utils/PinData';
+
 const Notes = () => {
   const data = fetchData();
 
@@ -123,10 +124,10 @@ const Notes = () => {
           </div>
         }
 
-        <div className='notes-item add'>
+        {/* <div className='notes-item add'>
           +
-          {/* <Modal className={['notes-item','add']} changevalue={"Create"} changetitle={"Create"}/> */}
-        </div>
+        </div> */}
+        <Modal changeclass={true}/>
       </div>
       <div ref={pagination} className="pagination"><Pagination count={Math.ceil(handleSearch().length / 6).toFixed(0)}
         style={{

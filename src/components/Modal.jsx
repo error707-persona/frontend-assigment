@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { CreateNote } from '../utils/CreateNote';
 import { EditData } from '../utils/EditData';
+
 // import NoteContext from '../context/NoteContext';
 // import { useContext } from 'react';
-const Modal = ({changevalue, Title, Tagline, Notes, id, pagination}) => {
+const Modal = ({changevalue, Title, Tagline, Notes, id, pagination, changeclass}) => {
   const modal_container = useRef(null);
   const title = useRef(null);
   const tagline = useRef(null);
@@ -39,7 +40,7 @@ const Modal = ({changevalue, Title, Tagline, Notes, id, pagination}) => {
   }
   return (
     <div>
-      <button onClick={handleOpen} className="close" id="close">{(changevalue)?changevalue:"+"}</button>
+      <button onClick={handleOpen} className={(changeclass)?"notes-item add":"close"} width={(changeclass)?"300px":"50px"} id="close">{(changevalue)?changevalue:"+" }</button>
       <div className='modal-container' ref={modal_container}>
         <div className="modal">
           <h1>{(changevalue)?changevalue:"Create"}</h1>

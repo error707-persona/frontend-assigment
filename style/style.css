@@ -269,6 +269,7 @@ textarea[disabled] {
     cursor: pointer;
     border:none;
     outline: none;
+    width: 300px;
 }
 
 .add:hover{
