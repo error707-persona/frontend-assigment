@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 
 const EditData = (id, title, tagline, note) => {
 
-    useEffect(() => {
-
+        let data = null;
+        console.log(id, title, tagline, note)
         axios({
             method: 'post',
             url: `http://localhost:9023/edit/${id}`,
@@ -17,15 +17,15 @@ const EditData = (id, title, tagline, note) => {
                 note: note
             }
         }).then(res => {
-
+            data = res.data;
             console.log("edit info", res.data)
-            console.log(title, tagline, note, "all values")
+            
 
         })
             .catch(err => {
                 console.log(err);
             })
-    }, [])
+   
     // console.log(data)
     if (data) return data;
 }

@@ -108,7 +108,7 @@ const Notes = () => {
           <textarea disabled cols="37" rows="13" value={item.note}></textarea>
           
           <div className="options">
-            <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item.id} />
+            <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item._id} />
             <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
            {(item.pinned==="true")? <button ref={pin} className='pin pin-selected' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>
            :<button ref={pin} className='pin' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>}

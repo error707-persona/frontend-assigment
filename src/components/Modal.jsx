@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react'
 import { CreateNote } from '../utils/CreateNote';
 import { EditData } from '../utils/EditData';
-
+// import NoteContext from '../context/NoteContext';
+// import { useContext } from 'react';
 const Modal = ({changevalue, Title, Tagline, Notes, id}) => {
   const modal_container = useRef(null);
   const title = useRef(null);
   const tagline = useRef(null);
   const note = useRef(null);
+  // const {changeTitle, changeTagline, changeNote, setchangeTitle, setchangeTagline, setchangeNote} = useContext(NoteContext); 
   const [changeTitle, setchangeTitle] = useState(Title)
   const [changeTagline, setchangeTagline] = useState(Tagline)
   const [changeNote, setchangeNote] = useState(Notes)
@@ -21,15 +23,13 @@ const Modal = ({changevalue, Title, Tagline, Notes, id}) => {
   const handleSave = () => {
     // console.log(changevalue)
     modal_container.current.classList.remove("show");
+    
     if (!changevalue){
       CreateNote(title.current.value, tagline.current.value, note.current.value);
     } else{
       EditData(id, title.current.value, tagline.current.value, note.current.value)
     }
-    
-    
-      
-    
+
       setTimeout(function () {
         window.location.reload();
       }, 1000)
