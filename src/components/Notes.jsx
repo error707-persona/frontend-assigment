@@ -12,7 +12,7 @@ const Notes = () => {
   // const [click, setclick] = useState(0)
   const [search, setsearch] = useState("");
   const [page, setpage] = useState(1);
-  
+  const pagination = useRef(null);
   const pin = useRef(null);
   var changevalue = "Edit"
   // console.log(data, "outside");
@@ -108,7 +108,7 @@ const Notes = () => {
           <textarea disabled cols="37" rows="13" value={item.note}></textarea>
           
           <div className="options">
-            <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item._id} />
+            <Modal changevalue={changevalue} Title={item.title} Tagline={item.tagline} Notes={item.note} id={item._id} pagination={pagination} />
             <button className='pin' onClick={() => handleClick(item._id)}><IconTrash /></button>
            {(item.pinned==="true")? <button ref={pin} className='pin pin-selected' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>
            :<button ref={pin} className='pin' onClick={() => handlePin(item._id, item.pinned)}><IconPin /></button>}
@@ -127,10 +127,8 @@ const Notes = () => {
           +
           {/* <Modal className={['notes-item','add']} changevalue={"Create"} changetitle={"Create"}/> */}
         </div>
-
-
       </div>
-      <Pagination count={Math.ceil(handleSearch().length / 6).toFixed(0)}
+      <div ref={pagination} className="pagination"><Pagination count={Math.ceil(handleSearch().length / 6).toFixed(0)}
         style={{
           padding: 20,
           width: "100%",
@@ -143,6 +141,7 @@ const Notes = () => {
           window.scroll(0, 100);
         }}
       />
+      </div>
 
     </div>
 

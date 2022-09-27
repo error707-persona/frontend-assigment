@@ -233,6 +233,14 @@ textarea[disabled] {
     align-items: center;
 }
 
+.pagination{
+    pointer-events: auto;
+}
+.pagination-hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+
 
 
 

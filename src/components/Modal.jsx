@@ -3,7 +3,7 @@ import { CreateNote } from '../utils/CreateNote';
 import { EditData } from '../utils/EditData';
 // import NoteContext from '../context/NoteContext';
 // import { useContext } from 'react';
-const Modal = ({changevalue, Title, Tagline, Notes, id}) => {
+const Modal = ({changevalue, Title, Tagline, Notes, id, pagination}) => {
   const modal_container = useRef(null);
   const title = useRef(null);
   const tagline = useRef(null);
@@ -14,10 +14,12 @@ const Modal = ({changevalue, Title, Tagline, Notes, id}) => {
   const [changeNote, setchangeNote] = useState(Notes)
   const handleOpen = () => {
     modal_container.current.classList.add("show");
+    pagination.current.classList.add("pagination-hidden");
    
   }
   const handleClose = () => {
     modal_container.current.classList.remove("show");
+    pagination.current.classList.remove("pagination-hidden");
   }
  
   const handleSave = () => {
