@@ -9,7 +9,7 @@ const CreateNote = (title, tagline, note) => {
     
         axios({
             method: 'post',
-            url: 'http://localhost:9023/Notes',
+            url: 'https://f-backend.herokuapp.com/Notes',
             headers: {}, 
             data: {
              title:title, // This is the body part
