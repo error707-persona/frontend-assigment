@@ -11,7 +11,7 @@ const fetchData = () => {
     useEffect(() => {
         let item = null;
         axios
-            .get(`http://localhost:9023/`)
+            .get(`https://secure-bastion-81443.herokuapp.com/`)
             .then(res => {
                 // item = res.data;
                 // console.log("item", res.data)

@@ -9,7 +9,7 @@ const PinData = (id, isPinned) => {
         
         axios({
             method: 'post',
-            url: `http://localhost:9023/pin/${id}`,
+            url: `https://secure-bastion-81443.herokuapp.com/pin/${id}`,
             headers: {}, 
             data:{
                 

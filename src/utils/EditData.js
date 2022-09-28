@@ -8,7 +8,7 @@ const EditData = (id, title, tagline, note) => {
         console.log(id, title, tagline, note)
         axios({
             method: 'post',
-            url: `http://localhost:9023/edit/${id}`,
+            url: `https://secure-bastion-81443.herokuapp.com/${id}`,
             headers: {},
             data: {
 

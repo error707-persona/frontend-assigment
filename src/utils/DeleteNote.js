@@ -3,7 +3,7 @@ import axios from "axios";
 const DeleteNote = (id) => {
         axios({
             method: 'post',
-            url: `http://localhost:9023/delete/${id}`,
+            url: `https://secure-bastion-81443.herokuapp.com/${id}`,
            
           }).then(res=>{
             console.log("res post", res.data);
